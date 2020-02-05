@@ -11,7 +11,7 @@ then
     conda activate pypi-mirror
     pip install -q python-pypi-mirror
 else
-	conda activate pypi-mirror
+    conda activate pypi-mirror
 fi
 
 # Download python packages
