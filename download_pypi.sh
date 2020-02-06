@@ -7,7 +7,7 @@ source $HOME/anaconda3/etc/profile.d/conda.sh
 RESULT=$(conda env list | grep -c pypi-mirror)
 if [ $RESULT -eq 0 ]
 then
-    conda create --file environment.yml
+    conda env create --file environment.yml
     conda activate pypi-mirror
     pip install -r requirements.txt
 else
