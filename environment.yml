@@ -23,5 +23,4 @@ dependencies:
   - zlib=1.2.11=h7b6447c_3
   - pip:
     - python-pypi-mirror==4.0.2
-prefix: /home/jj/anaconda3/envs/pypi-mirror
 

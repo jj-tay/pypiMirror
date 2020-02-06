@@ -7,9 +7,9 @@ source $HOME/anaconda3/etc/profile.d/conda.sh
 RESULT=$(conda env list | grep -c pypi-mirror)
 if [ $RESULT -eq 0 ]
 then
-    conda create -y -n pypi-mirror python=3.7 pip
+    conda create --file environment.yml
     conda activate pypi-mirror
-    pip install -q python-pypi-mirror
+    pip install -r requirement.txt
 else
     conda activate pypi-mirror
 fi
