@@ -1,2 +1,0 @@
-certifi==2019.11.28
-python-pypi-mirror==4.0.2
