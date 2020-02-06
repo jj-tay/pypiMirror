@@ -9,7 +9,7 @@ if [ $RESULT -eq 0 ]
 then
     conda create --file environment.yml
     conda activate pypi-mirror
-    pip install -r requirement.txt
+    pip install -r requirements.txt
 else
     conda activate pypi-mirror
 fi
