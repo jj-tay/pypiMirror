@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define variables
-DIR_DOWNLOADS="downloads/"
+DIR_DOWNLOADS=mktemp
 DIR_MIRROR="simple/"
 
 # Setup conda
