@@ -7,7 +7,7 @@ DIR_MIRROR="simple/"
 # Setup conda
 source $HOME/anaconda3/etc/profile.d/conda.sh
 
-# Create conda-miror environment if required
+# Create pypi-miror environment if required
 RESULT=$(conda env list | grep -c pypi-mirror)
 if [ $RESULT -eq 0 ]
 then
@@ -50,6 +50,7 @@ done < ./packages.txt
 pypi-mirror create -d $DIR_DOWNLOADS -m $DIR_MIRROR
 
 # Exit pypi-mirror environment and return to previous directory
+rm -R $DIR_DOWNLOADS
 conda deactivate
 if [ $RESULT -eq 0 ]
 then
