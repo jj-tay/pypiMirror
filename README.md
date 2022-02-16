@@ -19,7 +19,7 @@ The script requires 2 input files placed in the same directory as where the scri
 
 4. `pkgs_in_mirror.txt` is appended to `mirror.conf` to form a complete bandersnatch configuration file.
 
-5. The script uses bandersatch to mirror all editions of the whitelised packages from PyPi via the provided configuration file.
+5. The script uses bandersnatch to mirror all editions of the whitelised packages from PyPi via the provided configuration file.
 
 6. Finally, the script locates the newly added files and copies them to a folder called `to_transfer` to minimise transfer requirements.
 
