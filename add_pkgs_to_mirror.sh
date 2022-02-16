@@ -55,5 +55,8 @@ if [ -d to_transfer ]
 	    rm -rf to_transfer/
 fi
 mkdir to_transfer
-find bandersnatch -type f -newermt "$START_DATETIME" -exec rsync -R {} to_transfer \;
-
+find \
+    $(grep 'directory' mirror.conf | cut -d "=" -f 2 | sed -e 's/^ *//' -e 's/ *$//') \
+    -type f \
+    -newermt "$START_DATETIME" \
+    -exec rsync -R {} to_transfer \;
