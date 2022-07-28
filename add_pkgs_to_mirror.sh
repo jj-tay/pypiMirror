@@ -48,15 +48,3 @@ if [ $RESULT -eq 0 ]
     then
         conda remove -n bandersnatch --all -y
 fi
-
-# Copy new files to modified folder to ease file transfers
-if [ -d to_transfer ]
-    then
-	    rm -rf to_transfer/
-fi
-mkdir to_transfer
-find \
-    $(grep 'directory' mirror.conf | cut -d "=" -f 2 | sed -e 's/^ *//' -e 's/ *$//') \
-    -type f \
-    -newermt "$START_DATETIME" \
-    -exec rsync -R {} to_transfer \;
