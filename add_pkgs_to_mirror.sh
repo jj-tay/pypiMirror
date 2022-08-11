@@ -40,7 +40,7 @@ fi
 CONF=$(mktemp)
 cp mirror.conf $CONF
 sed 's/^/    /' pkgs_in_mirror.txt >> $CONF
-bandersnatch -c $CONF mirror
+bandersnatch -c $CONF mirror --force-check
 
 # Exit bandersnatch environment
 conda deactivate
