@@ -4,3 +4,4 @@ to_transfer/
 mirror.conf
 pkgs_in_mirror.txt
 pkgs_to_add.txt
+*.log
