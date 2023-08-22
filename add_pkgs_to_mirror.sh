@@ -1,12 +1,6 @@
 #!/bin/bash
 set -e
 
-# Record start time for use to detect new files later
-START_DATETIME=$(date +"%F %T")
-
-# Setup conda
-source $HOME/miniconda3/etc/profile.d/conda.sh
-
 # Create throwaway conda env to figure out package dependencies
 CONDA_ENV=bandersnatch$RANDOM
 conda create -y -n $CONDA_ENV pip
@@ -26,15 +20,8 @@ sort -uio pkgs_in_mirror.txt pkgs_in_mirror.txt
 conda deactivate
 conda remove -n $CONDA_ENV --all -y
 
-# Create bandersnatch environment if required
-RESULT=$(conda env list | grep -c bandersnatch)
-if [ $RESULT -eq 0 ]
-    then
-        conda env create -f environment.yml
-        conda activate bandersnatch
-    else
-        conda activate bandersnatch
-fi
+# Activate bandersnatch environment
+conda activate bandersnatch
 
 # Add packages to mirror
 CONF=$(mktemp)
@@ -44,7 +31,6 @@ bandersnatch -c $CONF mirror --force-check
 
 # Exit bandersnatch environment
 conda deactivate
-if [ $RESULT -eq 0 ]
-    then
-        conda remove -n bandersnatch --all -y
-fi
+
+# Sync to S3
+aws s3 sync bandersnatch/web s3://s3fs-mount-s3-prod/hdbpypi --delete --debug --profile hdbba-s3fs
