@@ -25,7 +25,7 @@ conda activate bandersnatch
 
 # Add packages to mirror
 CONF=$(mktemp)
-cp mirror.conf $CONF
+cp mirror-linux.conf $CONF
 sed 's/^/    /' pkgs_in_mirror.txt >> $CONF
 bandersnatch -c $CONF mirror --force-check
 
