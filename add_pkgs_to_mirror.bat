@@ -32,7 +32,9 @@ copy mirror-windows.conf %CONF%
 for /f %%P in (pkgs_in_mirror.txt) do (
   echo     %%P>> %CONF%
 )
-bandersnatch -c %CONF% mirror --force-check
+bandersnatch -c %CONF% mirror
+bandersnatch -c %CONF% mirror
+bandersnatch -c %CONF% mirror
 del %CONF%
 
 REM Exit bandersnatch environment

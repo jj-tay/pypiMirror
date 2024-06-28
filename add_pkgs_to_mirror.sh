@@ -27,7 +27,9 @@ conda activate bandersnatch
 CONF=$(mktemp)
 cp mirror-linux.conf $CONF
 sed 's/^/    /' pkgs_in_mirror.txt >> $CONF
-bandersnatch -c $CONF mirror --force-check
+bandersnatch -c $CONF mirror
+bandersnatch -c $CONF mirror
+bandersnatch -c $CONF mirror
 
 # Exit bandersnatch environment
 conda deactivate
