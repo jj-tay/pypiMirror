@@ -4,7 +4,7 @@ setlocal enabledelayedexpansion
 REM Install packages
 for /f %%P in (pkgs_to_add.txt) do (
   set CONDA_ENV=bandersnatch!RANDOM!
-  call conda create -y -n !CONDA_ENV! pip
+  call conda create -y -n !CONDA_ENV! pip conda
   call conda activate !CONDA_ENV!
   
   pip install --no-input %%P
@@ -28,6 +28,11 @@ REM Activate bandersnatch environment if required
 call conda activate bandersnatch
 
 REM Add packages to mirror
+REM Use AWS shared credentials via profile
+set AWS_PROFILE=hdbba-s3fs
+REM Optional if credentials/config are in non-default locations:
+REM set AWS_SHARED_CREDENTIALS_FILE=%USERPROFILE%\.aws\credentials
+REM set AWS_CONFIG_FILE=%USERPROFILE%\.aws\config
 set CONF=%TEMP%\%RANDOM%
 copy mirror-windows.conf %CONF%
 for /f %%P in (pkgs_in_mirror.txt) do (
@@ -38,6 +43,3 @@ del %CONF%
 
 REM Exit bandersnatch environment
 call conda deactivate
-
-REM Sync to S3
-aws s3 sync bandersnatch\web s3://s3fs-mount-s3-prod/hdbpypi --delete --debug --profile hdbba-s3fs
