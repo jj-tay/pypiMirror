@@ -6,7 +6,7 @@ while read pkg
     do
       # Create throwaway conda env to figure out package dependencies
       CONDA_ENV=bandersnatch$RANDOM
-      conda create -y -n $CONDA_ENV pip
+      conda create -y -n $CONDA_ENV pip conda
       conda activate $CONDA_ENV
 
       pip install --no-input $pkg
@@ -24,6 +24,11 @@ done < pkgs_to_add.txt
 conda activate bandersnatch
 
 # Add packages to mirror
+# Use AWS shared credentials via profile
+export AWS_PROFILE=hdbba-s3fs
+# Optional if credentials/config are in non-default locations:
+# export AWS_SHARED_CREDENTIALS_FILE="$HOME/.aws/credentials"
+# export AWS_CONFIG_FILE="$HOME/.aws/config"
 CONF=$(mktemp)
 cp mirror-linux.conf $CONF
 sed 's/^/    /' pkgs_in_mirror.txt >> $CONF
@@ -31,6 +36,3 @@ bandersnatch -c $CONF mirror --force-check
 
 # Exit bandersnatch environment
 conda deactivate
-
-# Sync to S3
-aws s3 sync bandersnatch/web s3://s3fs-mount-s3-prod/hdbpypi --delete --debug --profile hdbba-s3fs
